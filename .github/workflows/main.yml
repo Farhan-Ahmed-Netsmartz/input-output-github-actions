@@ -1,4 +1,4 @@
-name: Calculate Sum
+name: Calculate Sum with Choice
 
 on:
   workflow_dispatch:
@@ -6,11 +6,27 @@ on:
       number1:
         description: 'First number'
         required: true
-        default: '0'
+        default: '1'
+        type: choice
+        options:
+          - '0'
+          - '1'
+          - '2'
+          - '3'
+          - '4'
+          - '5'
       number2:
         description: 'Second number'
         required: true
-        default: '0'
+        default: '1'
+        type: choice
+        options:
+          - '0'
+          - '1'
+          - '2'
+          - '3'
+          - '4'
+          - '5'
 
 jobs:
   calculate:
