@@ -1,48 +1,32 @@
-name: Calculate Sum with Choice
+name: Select and Print Option
 
 on:
   workflow_dispatch:
     inputs:
-      number1:
-        description: 'First number'
+      selection:
+        description: 'Select an option'
         required: true
-        default: '1'
+        default: 'frontend'
         type: choice
         options:
-          - '0'
-          - '1'
-          - '2'
-          - '3'
-          - '4'
-          - '5'
-      number2:
-        description: 'Second number'
-        required: true
-        default: '1'
-        type: choice
-        options:
-          - '0'
-          - '1'
-          - '2'
-          - '3'
-          - '4'
-          - '5'
+          - 'frontend'
+          - 'backend'
 
 jobs:
-  calculate:
+  print_option:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Calculate Sum
-        id: calculate_sum
+      - name: Print Selected Option
         run: |
-          number1=${{ github.event.inputs.number1 }}
-          number2=${{ github.event.inputs.number2 }}
-          sum=$((number1 + number2))
-          echo "Sum of $number1 and $number2 is $sum"
-          echo "::set-output name=sum::$sum"
-
-      - name: Print Sum
-        run: echo "The sum is ${{ steps.calculate_sum.outputs.sum }}"
+          selection=${{ github.event.inputs.selection }}
+          if [[ "$selection" == "frontend" ]]; then
+            echo "Selected option is frontend"
+          elif [[ "$selection" == "backend" ]]; then
+            echo "Selected option is backend"
+          else
+            echo "Invalid option selected"
+            exit 1
+          fi
